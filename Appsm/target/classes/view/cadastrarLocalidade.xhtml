@@ -1,0 +1,61 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form>
+		<p:messages showDetail="true" autoUpdate="true" closable="true"
+			severity="warn" />
+		<p:messages autoUpdate="true" closable="true" severity="error" />
+		<p:messages showDetail="true" autoUpdate="true" closable="true"
+			severity="info" />
+
+		<h:panelGrid id="panelGrid-campos-form" columns="2" cellpadding="10">
+
+			<p:outputLabel value="Identificação da empresa"
+				for="select-identificacao" title="Identifica a empresa que se encontra na localidade" />
+			<p:selectOneMenu id="select-identificacao" maxlength="80"
+				var="empresas"
+				value="#{cadastrarLocalidadeController.localidadeModel.identificacao}"
+				required="true"
+				requiredMessage="A empresa é de preenchimento obrigatório">
+				<f:selectItem itemValue="" itemLabel="Selecione" />
+				<f:selectItems value="#{consultarEmpresaController.empresas}"
+					var="empresas" itemValue="#{empresas.identificacao}"
+					itemLabel="#{empresas.identificacao}" />
+			</p:selectOneMenu>
+
+			<p:outputLabel value="Endereço" for="inputText-endereco" title="Endereço da localidade da franquia da empresa" />
+			<p:inputText id="inputText-endereco" style="width:300px"
+				maxlength="40"
+				value="#{cadastrarLocalidadeController.localidadeModel.endereco}"
+				required="true"
+				requiredMessage="O endereço é de preenchimento obrigatório" />
+
+			<p:outputLabel value="Site crítico?" for="selectMenu-criticidade" title="Verifica o nível do impacto, caso ocorra algum incidente na localidade"/>
+			<p:selectOneMenu id="selectMenu-criticidade"
+				title="Este campo serve para informar se a localidade é de alto impacto para a empresa"
+				value="#{cadastrarLocalidadeController.localidadeModel.critico}"
+				required="true"
+				requiredMessage="A criticidade é de preenchimento obrigatório">
+				<f:selectItem itemValue="" itemLabel="Selecione" />
+				<f:selectItem itemValue="Sim" itemLabel="Sim" />
+				<f:selectItem itemValue="Não" itemLabel="Não" />
+
+			</p:selectOneMenu>
+
+			<p:commandButton value="Salvar" id="commandButton-salvar"
+				icon="ui-icon-disk"
+				actionListener="#{cadastrarLocalidadeController.SalvarNovaLocalidade}" />
+			<p:commandButton value="Sair" id="commandButton-sair"
+				icon="ui-icon-extlink"
+				actionListener="PF('dialog-modal-editar').hide();"
+				onclick="window.location.href=window.location.href" />
+
+
+		</h:panelGrid>
+
+	</h:form>
+
+</ui:composition>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile" template="template.xhtml">
+
+	<ui:define name="conteudo">
+
+		<p:tabView>
+			<p:tab title="Cadastro de ligações curtas">
+
+				<h:form>
+
+					<p:messages showDetail="true" autoUpdate="true" closable="true"
+						severity="warn" />
+					<p:messages autoUpdate="true" closable="true" severity="error" />
+					<p:messages showDetail="true" autoUpdate="true" closable="true"
+						severity="info" />
+
+					<h:panelGrid id="panelGrid-campos-form" columns="2"
+						cellpadding="10">
+
+						<p:outputLabel value="Motivo" for="select-motivo"
+							title="Indica o motivo da ligação não ser registrada por completo" />
+						<p:selectOneMenu id="select-motivo" maxlength="80" var="motivos"
+							value="#{cadastrarCurtaController.curtasModel.motivo}"
+							required="true"
+							requiredMessage="O motivo é de preenchimento obrigatório">
+							<f:selectItem itemValue="" itemLabel="Selecione" />
+							<f:selectItems value="#{cadastrarCurtaController.getCurtas()}"
+								var="curtas" itemValue="#{curtas}" itemLabel="#{curtas}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Número do ticket" for="inputText-ticket"
+							title="Número do ticket que foi consultado" />
+						<p:inputText id="inputText-ticket" style="width:100px"
+							maxlength="10"
+							title="Campo utilizado apenas para quando o motivo for Consulta de chamado"
+							value="#{cadastrarCurtaController.curtasModel.ticketNumber}"
+							/>
+
+						<p:commandButton value="Salvar" id="commandButton-salvar"
+							icon="ui-icon-disk"
+							actionListener="#{cadastrarCurtaController.SalvarNovaCurta}" />
+
+					</h:panelGrid>
+
+				</h:form>
+			</p:tab>
+		</p:tabView>
+	</ui:define>
+</ui:decorate>

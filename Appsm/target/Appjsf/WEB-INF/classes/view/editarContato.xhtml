@@ -1,0 +1,93 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form>
+
+		<p:messages showDetail="false" autoUpdate="true" closable="true"
+			severity="error" />
+		<p:messages showDetail="true" autoUpdate="true" closable="true"
+			severity="info" />
+		<p:messages showDetail="true" autoUpdate="true" closable="true"
+			severity="warn" />
+			
+		<h:panelGrid id="panelGrid-campos-form" columns="2" cellpadding="10">
+
+			<p:outputLabel value="CPF" for="inputMask-cpf" title="CPF do funcionário"/>
+			<p:inputMask id="inputMask-cpf" mask="999.999.999-99"
+				style="width:100px"
+				value="#{consultarContatoController.contatoModel.cpf}"
+				readonly="true"/>
+
+			<p:outputLabel value="Nome" for="inputText-nome" title="Nome do funcionário" />
+			<p:inputText id="inputText-nome" style="width:300px" maxlength="40"
+				value="#{consultarContatoController.contatoModel.nomeContato}"
+				required="true"
+				requiredMessage="O nome é de preenchimento obrigatório" />
+
+			<p:outputLabel value="E-mail" for="inputText-email" title="E-mail do funcionário"/>
+			<p:inputText id="inputText-email" style="width:300px" maxlength="40"
+				value="#{consultarContatoController.contatoModel.email}"
+				required="true"
+				requiredMessage="O email é de preenchimento obrigatório" />
+
+			<p:outputLabel value="Telefone" for="inputMask-telefone" title="Telefone do funcionário. Aceitável apenas telefone fixo"/>
+			<p:inputMask id="inputMask-telefone" mask="(99)9999-9999"
+				style="width:100px" maxlength="40"
+				value="#{consultarContatoController.contatoModel.telefone}"
+				required="true"
+				requiredMessage="O telefone é de preenchimento obrigatório" />
+
+			<p:outputLabel value="Departamento" for="inputText-departamento" title="Departamento do funcionário"/>
+			<p:inputText id="inputText-departamento" style="width:300px"
+				maxlength="40"
+				value="#{consultarContatoController.contatoModel.departamento}"
+				required="true"
+				requiredMessage="O departamento é de preenchimento obrigatório" />
+
+			<p:outputLabel value="Cargo" for="inputText-cargo" title="Cargo do funcionário"/>
+			<p:inputText id="inputText-cargo" style="width:300px" maxlength="40"
+				value="#{consultarContatoController.contatoModel.cargo}"
+				required="true"
+				requiredMessage="O cargo é de preenchimento obrigatório" />
+
+
+			<p:outputLabel value="Localidade" for="select-localidade" title="Endereço da localidade onde o funcionário trabalha"/>
+			<p:selectOneMenu id="select-localidade" maxlength="40"
+				var="localidades"
+				value="#{consultarContatoController.contatoModel.endLocalidade}"
+				required="true"
+				requiredMessage="O endereço é de preenchimento obrigatório">
+				<f:selectItem itemValue="" itemLabel="Selecione" />
+				<f:selectItems value="#{consultarLocalidadeController.localidades}"
+					var="localidades" itemValue="#{localidades.endereco}"
+					itemLabel="#{localidades.endereco}" />
+			</p:selectOneMenu>
+
+			<p:outputLabel value="Empresa" for="select-identificacao" title="Empresa do funcionário"/>
+			<p:selectOneMenu id="select-identificacao" maxlength="40"
+				var="localidades"
+				value="#{consultarContatoController.contatoModel.identificacaoEmpresa}"
+				required="true"
+				requiredMessage="A empresa é de preenchimento obrigatório">
+				<f:selectItem itemValue="" itemLabel="Selecione" />
+				<f:selectItems value="#{consultarLocalidadeController.localidades}"
+					var="localidades" itemValue="#{localidades.identificacao}"
+					itemLabel="#{localidades.identificacao}" />
+			</p:selectOneMenu>
+
+			<p:commandButton value="Alterar" id="commandButton-alterar"
+				icon="ui-icon-disk"
+				actionListener="#{consultarContatoController.AlterarRegistro}" />
+			<p:commandButton value="Sair" id="commandButton-sair"
+				icon="ui-icon-extlink"
+				actionListener="PF('dialog-modal-editar').hide();"
+				onclick="window.location.href=window.location.href" />
+
+		</h:panelGrid>
+
+	</h:form>
+
+</ui:composition>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile" template="template.xhtml">
+
+	<ui:define name="conteudo">
+
+		<p:tabView>
+			<p:tab title="Cadastro de tickets">
+				<h:form>
+					<p:messages showDetail="true" autoUpdate="true" closable="true"
+						severity="warn" />
+					<p:messages showDetail="true" autoUpdate="true" closable="true"
+						severity="info" />
+					<h:panelGrid id="panelGrid-campos-form-father" columns="2"
+						cellpadding="10">
+
+						<h:panelGrid id="panelGrid-campos-form-left" columns="2"
+							cellpadding="5">
+
+							<p:outputLabel value="Data" />
+							<p:inputText id="inputText-data" style="width:100px"
+								value="#{cadastrarTicketController.GerarData()}" readonly="true" />
+
+							<p:outputLabel value="CPF" for="inputMask-cpf"
+								title="CPF do funcionário que entrou em contato" />
+
+							<p:inputMask id="inputMask-cpf" mask="999.999.999-99"
+								style="width:100px" maxlength="80"
+								value="#{cadastrarTicketController.ticketModel.cpf}"
+								required="true">
+								<p:ajax event="blur" process="@this" update="panelGrid-campos-form-left"
+									listener="#{cadastrarTicketController.ValidarContato()}" />
+								<p:focus />
+							</p:inputMask>
+							
+							<p:outputLabel value="Telefone" for="inputText-telefone" />
+							<p:inputText id="inputText-telefone" style="width:100px"
+								value="#{cadastrarTicketController.ticketModel.telefone}"
+								readonly="true" />
+
+							<p:outputLabel value="Nome" for="inputText-nome" />
+							<p:inputText id="inputText-nome" style="width:300px"
+								value="#{cadastrarTicketController.ticketModel.nome}"
+								readonly="true" />
+
+							<p:outputLabel value="Empresa" for="inputText-empresa" />
+							<p:inputText id="inputText-empresa" style="width:300px"
+								value="#{cadastrarTicketController.ticketModel.identificacaoEmpresa}"
+								readonly="true" />
+
+							<p:outputLabel value="Localidade" for="inputText-localidade" />
+							<p:inputText id="inputText-localidade" style="width:300px"
+								value="#{cadastrarTicketController.ticketModel.endLocalidade}"
+								readonly="true" />
+
+						</h:panelGrid>
+
+						<h:panelGrid id="panelGrid-campos-form-right" columns="2"
+							cellpadding="5">
+							
+							<p:outputLabel value="Fonte" for="select-fonte"
+								title="Indica como o analista recebeu o contato do funcionário" />
+							<p:selectOneMenu id="select-fonte" maxlength="80" var="fontes"
+								value="#{cadastrarTicketController.ticketModel.fonte}"
+								required="true">
+								<f:selectItem itemValue="" itemLabel="Selecione" />
+								<f:selectItems value="#{cadastrarTicketController.getFontes()}"
+									var="fontes" itemValue="#{fontes}" itemLabel="#{fontes}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel value="Fila" for="select-fila" />
+							<p:selectOneMenu id="select-fila" maxlength="80" var="fila"
+								value="#{cadastrarTicketController.ticketModel.fila}"
+								required="true" title="Indica a qual equipe o ticket pertence">
+								<f:selectItem itemValue="" itemLabel="Selecione" />
+								<f:selectItems value="#{cadastrarTicketController.getFilas()}"
+									var="filas" itemValue="#{filas}" itemLabel="#{filas}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel value="Severidade" for="select-severidade" />
+							<p:selectOneMenu id="select-severidade" maxlength="80"
+								var="severidades"
+								value="#{cadastrarTicketController.ticketModel.severidade}"
+								required="true"
+								title="Indica o grau de severidade que o incidente está causando para o funcionário">
+								<f:selectItem itemValue="" itemLabel="Selecione" />
+								<f:selectItems
+									value="#{cadastrarTicketController.getSeveridade()}"
+									var="severidades" itemValue="#{severidade}"
+									itemLabel="#{severidade}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel value="Impacto" for="select-impacto" />
+							<p:selectOneMenu id="select-impacto" maxlength="80" var="impacto"
+								value="#{cadastrarTicketController.ticketModel.impacto}"
+								required="true"
+								title="Indica para quantas pessoas o incidente está impactando">
+								<f:selectItem itemValue="" itemLabel="Selecione" />
+								<f:selectItems value="#{cadastrarTicketController.getImpacto()}"
+									var="impactos" itemValue="#{impacto}" itemLabel="#{impacto}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel value="Produto impactado" for="select-produto" />
+							<p:selectOneMenu id="select-produto" maxlength="80"
+								var="produtos"
+								value="#{cadastrarTicketController.ticketModel.produtoImpactado}"
+								required="true"
+								title="Indica qual é o produto que está sendo impactado pelo incidente">
+								<f:selectItem itemValue="" itemLabel="Selecione" />
+								<f:selectItems
+									value="#{cadastrarTicketController.getProdutos()}" var="fontes"
+									itemValue="#{fontes}" itemLabel="#{fontes}" />
+							</p:selectOneMenu>
+
+						</h:panelGrid>
+					</h:panelGrid>
+
+					<h:panelGrid id="panelGrid-campos-form-down" width="100%"
+						cellpadding="5">
+
+						<h:panelGrid id="panelGrid-campos-form-titulo" columns="2">
+
+							<p:outputLabel value="Título" for="select-titulo" />
+							<p:inputText id="select-titulo" maxlength="100"
+								style="width:600px"
+								value="#{cadastrarTicketController.ticketModel.titulo}"
+								required="true" title="Descrição resumida do problema">
+							</p:inputText>
+
+						</h:panelGrid>
+
+						<p:outputLabel value="Descrição" for="inputTextArea-descricao"
+							title="Descrição detalhada do incidente" />
+						<p:inputTextarea id="inputTextArea-descricao"
+							style="width:100%; height:100px"
+							value="#{cadastrarTicketController.ticketModel.descricao}"
+							autoResize="false" maxlength="1999" required="true" />
+
+						<h:panelGrid id="panelGrid-campos-form-solucao" columns="2">
+
+							<p:outputLabel value="Tipo Solução" for="select-tipoResolucao" />
+							<p:selectOneMenu id="select-tipoResolucao" maxlength="80"
+								var="solucao"
+								value="#{cadastrarTicketController.ticketModel.tipoResolucao}"
+								required="true" title="Indica como o ticket foi tratado">
+								<f:selectItem itemValue="" itemLabel="Selecione" />
+								<f:selectItems value="#{cadastrarTicketController.getSolucao()}"
+									var="solucao" itemValue="#{solucao}" itemLabel="#{solucao}" />
+							</p:selectOneMenu>
+
+						</h:panelGrid>
+
+						<p:outputLabel value="Solução" for="inputTextArea-solucao"
+							title="Descrição detalhada da solução tomada pelo analista" />
+						<p:inputTextarea id="inputTextArea-solucao"
+							style="width:100%; height:100px"
+							value="#{cadastrarTicketController.ticketModel.solucao}"
+							autoResize="false" maxlength="1999" required="true" />
+
+					</h:panelGrid>
+
+					<p:commandButton value="Salvar" id="commandButton-salvar"
+						icon="ui-icon-gear"
+						actionListener="#{cadastrarTicketController.SalvarNovoTicket}"
+						update="@form" />
+
+				</h:form>
+			</p:tab>
+		</p:tabView>
+	</ui:define>
+
+</ui:decorate>

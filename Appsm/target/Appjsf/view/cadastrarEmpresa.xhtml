@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form>
+
+		<p:messages showDetail="true" autoUpdate="true" closable="true"
+			severity="warn" />
+		<p:messages autoUpdate="true" closable="true" severity="error" />
+		<p:messages showDetail="true" autoUpdate="true" closable="true"
+			severity="info" />
+
+		<h:panelGrid id="panelGrid-campos-form" columns="2" cellpadding="10">
+
+			<p:outputLabel value="Identificação" for="inputText-id" title="Identificação abreviada da empresa. Exemplo: Se a empresa for a Cetelem, sua identificação pode ser: CTLM"/>
+			<p:inputText id="inputText-id" style="width:300px" maxlength="10"
+				value="#{cadastrarEmpresaController.empresaModel.identificacao}"
+				required="true"
+				requiredMessage="O id é de preenchimento obrigatório" />
+
+			<p:outputLabel value="Nome" for="inputText-nome" title="Nome completo da empresa, sem abreviações"/>
+			<p:inputText id="inputText-nome" style="width:300px" maxlength="30"
+				value="#{cadastrarEmpresaController.empresaModel.nome}"
+				required="true"
+				requiredMessage="O nome é de preenchimento obrigatório" />
+
+			<p:commandButton value="Salvar" id="commandButton-salvar"
+				icon="ui-icon-disk"
+				actionListener="#{cadastrarEmpresaController.SalvarNovaEmpresa}" />
+			
+			<p:commandButton value="Sair" id="commandButton-sair"
+				icon="ui-icon-extlink"
+				actionListener="PF('dialog-modal-editar').hide();" 
+				onclick="window.location.href=window.location.href"/>
+
+		</h:panelGrid>
+
+	</h:form>
+
+</ui:composition>

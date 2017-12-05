@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile" template="template.xhtml">
+
+	<ui:define name="conteudo">
+
+		<p:dialog header="Visualizar ticket" id="dialog-modal-editar"
+			widgetVar="dialog-modal-editar" modal="true" height="550px"
+			width="900px" resizable="false">
+
+			<ui:include src="/view/viewTicket.xhtml" />
+
+
+		</p:dialog>
+
+		<p:tabView>
+			<p:tab title="Tickets registrados">
+				<h:form style="margin:auto;" id="form-consulta">
+
+					<p:dataTable id="dataTable-registros" var="ticket"
+						value="#{consultarTicketController.tickets}" rows="10"
+						filteredValue="#{consultarTicketController.ticketsFiltered}"
+						paginator="true"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} "
+						currentPageReportTemplate="[ Exibindo de {startRecord} a {endRecord} no total de {totalRecords} ]"
+						rowsPerPageTemplate="10,15,20" style="width:100%;"
+						emptyMessage="Não foram encontrados registros"
+						draggableRows="true" draggableColumns="true">
+
+						<p:column filterBy="#{ticket.idTicket}" headerText="Número"
+							filterMatchMode="contains" style="width: 12% !important">
+							<h:outputText value="#{ticket.idTicket}" />
+						</p:column>
+
+						<p:column headerText="Fonte">
+							<h:outputText value="#{ticket.fonte}" />
+						</p:column>
+
+						<p:column filterBy="#{ticket.nome}" headerText="Nome"
+							filterMatchMode="contains" style="width: 12% !important">
+							<h:outputText value="#{ticket.nome}" />
+						</p:column>
+
+						<p:column headerText="Titulo">
+							<h:outputText value="#{ticket.titulo}" />
+						</p:column>
+
+						<p:column headerText="Empresa">
+							<h:outputText value="#{ticket.identificacaoEmpresa}" />
+						</p:column>
+
+						<p:column headerText="Localidade">
+							<h:outputText value="#{ticket.endLocalidade}" />
+						</p:column>
+
+						<p:column headerText="Fila">
+							<h:outputText value="#{ticket.fila}" />
+						</p:column>
+
+						<p:column headerText="Tipo da solução">
+							<h:outputText value="#{ticket.tipoResolucao}" />
+						</p:column>
+
+						<p:column headerText="Criado por">
+							<h:outputText value="#{ticket.usuarioModel.usuario}" />
+						</p:column>
+
+						<p:column headerText="" style="width:25px;">
+
+							<p:commandButton icon="ui-icon-pencil" title="Visualizar Ticket"
+								ajax="true"
+								actionListener="#{consultarTicketController.Visualizar(ticket)}"
+								oncomplete="PF('dialog-modal-editar').show();"
+								update="dialog-modal-editar" />
+
+						</p:column>
+
+					</p:dataTable>
+				</h:form>
+			</p:tab>
+		</p:tabView>
+	</ui:define>
+
+</ui:decorate>

@@ -1,0 +1,164 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form>
+
+		<h:panelGrid id="panelGrid-campos-form-father" columns="2"
+			cellpadding="10">
+
+			<h:panelGrid id="panelGrid-campos-form-left" columns="2"
+				cellpadding="5">
+
+				<p:outputLabel value="Fonte" for="select-fonte"
+					title="Indica como o analista recebeu o contato do funcionário" />
+				<p:selectOneMenu id="select-fonte" maxlength="80" var="fontes"
+					value="#{consultarTicketController.ticketModel.fonte}"
+					disabled="true" >
+					<f:selectItem itemValue="" itemLabel="Selecione" />
+					<f:selectItems value="#{cadastrarTicketController.getFontes()}"
+						var="fontes" itemValue="#{fontes}" itemLabel="#{fontes}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Data" />
+				<p:inputText id="inputText-data" style="width:100px"
+					value="#{consultarTicketController.ticketModel.dataAbertura}"
+					readonly="true" />
+
+				<p:outputLabel value="CPF" for="inputMask-cpf"
+					title="CPF do funcionário que entrou em contato" />
+
+
+					<p:inputMask id="inputMask-cpf" mask="999.999.999-99"
+						style="width:100px" maxlength="80"
+						value="#{consultarTicketController.ticketModel.cpf}"
+						readonly="true"/>
+
+				<p:outputLabel value="Nome" for="inputText-nome" />
+				<p:inputText id="inputText-nome" style="width:300px"
+					value="#{consultarTicketController.ticketModel.nome}"
+					readonly="true" />
+
+
+				<p:outputLabel value="Empresa" for="inputText-empresa" />
+				<p:inputText id="inputText-empresa" style="width:300px"
+					value="#{consultarTicketController.ticketModel.identificacaoEmpresa}"
+					readonly="true" />
+
+				<p:outputLabel value="Localidade" for="inputText-localidade" />
+				<p:inputText id="inputText-localidade" style="width:300px"
+					value="#{consultarTicketController.ticketModel.endLocalidade}"
+					readonly="true" />
+
+			</h:panelGrid>
+
+			<h:panelGrid id="panelGrid-campos-form-right" columns="2"
+				cellpadding="10">
+
+				<p:outputLabel value="Fila" for="select-fila" />
+				<p:selectOneMenu id="select-fila" maxlength="80" var="fila"
+					value="#{consultarTicketController.ticketModel.fila}"
+					disabled="true"
+					title="Indica a qual equipe o ticket pertence">
+					<f:selectItem itemValue="" itemLabel="Selecione" />
+					<f:selectItems value="#{cadastrarTicketController.getFilas()}"
+						var="filas" itemValue="#{filas}" itemLabel="#{filas}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Severidade" for="select-severidade" />
+				<p:selectOneMenu id="select-severidade" maxlength="80"
+					var="severidades"
+					value="#{consultarTicketController.ticketModel.severidade}"
+					disabled="true"
+					title="Indica o grau de severidade que o incidente está causando para o funcionário">
+					<f:selectItem itemValue="" itemLabel="Selecione" />
+					<f:selectItems value="#{cadastrarTicketController.getSeveridade()}"
+						var="severidades" itemValue="#{severidade}"
+						itemLabel="#{severidade}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Impacto" for="select-impacto" />
+				<p:selectOneMenu id="select-impacto" maxlength="80" var="impacto"
+					value="#{consultarTicketController.ticketModel.impacto}"
+					disabled="true"
+					title="Indica para quantas pessoas o incidente está impactando">
+					<f:selectItem itemValue="" itemLabel="Selecione" />
+					<f:selectItems value="#{cadastrarTicketController.getImpacto()}"
+						var="impactos" itemValue="#{impacto}" itemLabel="#{impacto}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Produto impactado" for="select-produto" />
+				<p:selectOneMenu id="select-produto" maxlength="80" var="produtos"
+					value="#{consultarTicketController.ticketModel.produtoImpactado}"
+					disabled="true"
+					title="Indica qual é o produto que está sendo impactado pelo incidente">
+					<f:selectItem itemValue="" itemLabel="Selecione" />
+					<f:selectItems value="#{cadastrarTicketController.getProdutos()}"
+						var="fontes" itemValue="#{fontes}" itemLabel="#{fontes}" />
+				</p:selectOneMenu>
+
+			</h:panelGrid>
+		</h:panelGrid>
+
+		<h:panelGrid id="panelGrid-campos-form-down" width="100%"
+			cellpadding="5">
+
+			<h:panelGrid id="panelGrid-campos-form-titulo" columns="2">
+
+				<p:outputLabel value="Título" for="select-titulo" />
+				<p:inputText id="select-titulo" maxlength="100" style="width:600px"
+					value="#{consultarTicketController.ticketModel.titulo}"
+					readonly="true"
+					title="Descrição resumida do problema">
+				</p:inputText>
+
+			</h:panelGrid>
+
+			<p:outputLabel value="Descrição" for="inputTextArea-descricao"
+				title="Descrição detalhada do incidente" />
+			<p:inputTextarea id="inputTextArea-descricao"
+				style="width:100%; height:100px"
+				value="#{consultarTicketController.ticketModel.descricao}"
+				autoResize="false" maxlength="2000"
+				readonly="true"/>
+
+			<h:panelGrid id="panelGrid-campos-form-solucao" columns="2">
+
+				<p:outputLabel value="Tipo Solução" for="select-tipoResolucao" />
+				<p:selectOneMenu id="select-tipoResolucao" maxlength="80"
+					var="solucao"
+					value="#{consultarTicketController.ticketModel.tipoResolucao}"
+					disabled="true"
+					title="Indica como o ticket foi tratado">
+					<f:selectItem itemValue="" itemLabel="Selecione" />
+					<f:selectItems value="#{cadastrarTicketController.getSolucao()}"
+						var="solucao" itemValue="#{solucao}" itemLabel="#{solucao}" />
+				</p:selectOneMenu>
+
+			</h:panelGrid>
+
+			<p:outputLabel value="Solução" for="inputTextArea-solucao"
+				title="Descrição detalhada da solução tomada pelo analista" />
+			<p:inputTextarea id="inputTextArea-solucao"
+				style="width:100%; height:100px"
+				value="#{consultarTicketController.ticketModel.solucao}"
+				autoResize="false" maxlength="2000" 
+				readonly="true"/>
+
+			<p:commandButton value="Sair" id="commandButton-sair"
+				icon="ui-icon-extlink"
+				actionListener="PF('dialog-modal-editar').hide();" 
+				onclick="window.location.href=window.location.href"/>
+		</h:panelGrid>
+
+		<p:messages showDetail="true" autoUpdate="true" closable="true"
+			severity="warn" />
+		<p:messages autoUpdate="true" closable="true" severity="error" />
+		<p:messages showDetail="true" autoUpdate="true" closable="true"
+			severity="info" />
+
+	</h:form>
+
+</ui:composition>

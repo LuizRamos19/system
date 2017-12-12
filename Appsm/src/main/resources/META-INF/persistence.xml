@@ -3,14 +3,14 @@
      <persistence-unit name="APPSM" transaction-type="RESOURCE_LOCAL">
           <provider>org.hibernate.ejb.HibernatePersistence</provider>
           <properties>
-          	<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+          	<property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
 			<property name="hibernate.hbm2ddl.auto" value="update"/>
 			<property name="hibernate.show_sql" value="true"/>
 			<property name="hibernate.format_sql" value="true"/>
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://sql10.freemysqlhosting.net:3306/sql10209106"/>
-			<property name="javax.persistence.jdbc.user" value="sql10209106"/>
-			<property name="javax.persistence.jdbc.password" value="PV2Q1HSXjU"/>
+			<property name="javax.persistence.jdbc.driver" value="net.sourceforge.jtds.jdbc.Driver"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:jtds:sqlserver://systemcall.database.windows.net:1433/db_call_manager"/>
+			<property name="javax.persistence.jdbc.user" value="luiz"/>
+			<property name="javax.persistence.jdbc.password" value="Modelo.10"/>
           </properties>
 	</persistence-unit>
 </persistence>
